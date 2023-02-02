@@ -14,4 +14,4 @@ To get in touch, you can message me on discord at "PointOfKnowReturn#6893".
 
 ## How to access information
 
-The results of which can be found on my website "www.knowreturn.tips".
+The results of which can be found on my website knowreturn.tips

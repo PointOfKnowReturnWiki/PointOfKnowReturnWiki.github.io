@@ -1,31 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      /* Add styles here */
-    </style>
-  </head>
-  <body>
-    <h1>Reference Page</h1>
-    
-    <!-- Concept 1 -->
-    <div class="concept">
-      <h2>Concept 1</h2>
-      <p>Explanation of Concept 1</p>
-      <img src="image1.jpg" alt="Image 1">
+
+<head>
+  <style>
+    body {
+      background-color: #0D1117;
+    }
+
+    .container {
+      background-color: #161B22;
+      border: 1px solid #30363D;
+      border-radius: 5px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .dropdown-toggle {
+      color: #C9D1D9;
+      cursor: pointer;
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+    }
+
+    .arrow {
+      display: inline-block;
+      transition: transform 0.3s;
+      transform: rotate(-90deg);
+    }
+
+    .active .arrow {
+      transform: rotate(0deg);
+    }
+
+    .dropdown-content {
+      background-color: #161B22;
+      border: 1px solid #30363D;
+      border-radius: 5px;
+      color: #C9D1D9;
+      display: none;
+      padding: 10px;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .active .dropdown-content {
+      display: block;
+    }
+
+    a {
+      color: #2D98FF;
+    }
+  </style>
+
+</head>
+
+<body style="background-color: #0D1117; color: #C9D1D9; font-family: sans-serif;">
+  <div class="container">
+    <h1>Welcome to my Github Page</h1>
+    <p>Here you will find information about various topics:</p>
+    <ul>
+      <li><a href="#section1">Section 1</a></li>
+      <li><a href="#section2">Section 2</a></li>
+      <li><a href="#section3">Section 3</a></li>
+    </ul>
+    <hr style="border-top: 1px solid #30363D;">
+    <h2 id="section1">Section 1</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna
+      varius vitae.</p>
+    <h2 id="section2">Section 2</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna
+      varius vitae.</p>
+    <h2 id="section3">Section 3</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna
+      varius vitae.</p>
+    <div class="dropdown">
+      <a class="dropdown-toggle"><span class="arrow">&#9660;</span> Click me for dropdown</a>
+      <div class="dropdown-content">
+        <p>Dropdown content</p>
+        <p>More content</p>
+      </div>
     </div>
-    
-    <!-- Concept 2 -->
-    <div class="concept">
-      <h2>Concept 2</h2>
-      <p>Explanation of Concept 2</p>
-      <img src="image2.jpg" alt="Image 2">
-    </div>
-    
-    <!-- Add more concepts here -->
-    
-    <script>
-      // Add JavaScript code here
-    </script>
-  </body>
+  </div>
+  <script>
+    const toggle = document.querySelector(".dropdown-toggle");
+    toggle.addEventListener("click", function () {
+      this.parentElement.classList.toggle("active");
+    });
+  </script>
+</body>
+
 </html>

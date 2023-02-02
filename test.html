@@ -37,18 +37,35 @@
             border-right: 1px solid #30363D;
             border-bottom: none;
             border-radius: 5px 5px 0 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px;
+            width: 100%;
         }
 
         .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main {
             background-color: #0D1117;
             border: 1px solid #30363D;
             border-radius: 0 0 5px 5px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .content-container {
+            display: flex;
+        }
+
+        .content {
+            flex-grow: 1;
+        }
+
+        .bump {
+            width: 50px;
         }
 
         .accordion {
@@ -92,107 +109,156 @@
 </head>
 
 <body>
-    <div class="header">
-        <h1>Know Return - Your Guide to Stable Diffusion</h1>
-    </div>
     <div class="container">
-
-        <h3>Table of Contents</h3>
-        <ul>
-            <li><a href="#section1">Models</a></li>
-            <ul>
-                <li><a href="#section1">Popular Models</a></li>
-                <li><a href="#section2">Where to Find Models</a></li>
-                <li><a href="#section3">How to Make them Work</a></li>
-                <li><a href="#section3">How to mix models--Points to WebUI features</a></li>
-            </ul>
-            <br />
-            <li><a href="#section2">VAE's</a></li>
-            <ul>
-                <li><a href="#section1">Popular VAE's</a></li>
-                <li><a href="#section2">Where to Find VAE's</a></li>
-                <li><a href="#section3">How to Make them Work</a></li>
-            </ul>
-            <br />
-            <li><a href="#section3">Server Features</a></li>
-            <ul>
-                <li><a href="#section1">Read metadata</a></li>
-                <li><a href="#section2">Reporting</a></li>
-            </ul>
-            <br />
-            <li><a href="#section1">LoRa/Embed/Hypernetwork</a></li>
-            <ul>
-                <li><a href="#section1">Popular</a></li>
-                <li><a href="#section2">Where to Find Them</a></li>
-                <li><a href="#section3">Where to put them/make them work</a></li>
-                <li><a href="#section3">Loose guidelines on weighting them</a></li>
-            </ul>
-            <br />
-            <li><a href="#section2">Prompting</a></li>
-            <ul>
-                <li><a href="#section1">Prompting Crashcourse</a></li>
-                <ul>
-                    <li><a href="#section1">Additional prompting details</a></li>
-                </ul>
-                <li><a href="#section2">How to see others prompts--points to read metadata and Webui Features</a></li>
-            </ul>
-            <br />
-            <li><a href="#section1">WebUI features</a></li>
-            <ul>
-                <li><a href="#section1">Extensions</a></li>
-                <ul>
-                    <li><a href="#section1">Popular ones</a></li>
-                    <li><a href="#section1">How to download</a></li>
-                </ul>
-                <li><a href="#section2">PNG info</a></li>
-                <li><a href="#section3">Need to Know SD Settings</a></li>
-                <li><a href="#section3">Popular Settings</a></li>
-                <ul>
-                    <li><a href="#section1">Samplers</a></li>
-                    <li><a href="#section1">Sampling Steps</a></li>
-                    <li><a href="#section1">Denoise</a></li>
-                    <li><a href="#section1">Upscalers</a></li>
-                </ul>
-                <li><a href="#section2">Img2Img</a></li>
-                <li><a href="#section2">Model Mixing</a></li>
-                <li><a href="#section2">Image Browser</a></li>
-            </ul>
-        </ul>
-
-
-        <hr />
-        <p>Click on the buttons to open the collapsible content.</p>
-        <a> </a>
-        <button class="accordion"><span class="arrow">&#9660;</span> Section 1</button>
-        <div class="panel">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo
-                consequat.</p>
-            <img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_metal_armor.png"
-                alt="Moth-Girl">
+        <div class="header">
+            <div class="content-container">
+                <div class="bump"></div>
+                <div class="content">
+                    <h1>Know Return - Your Guide to Unstable Diffusion</h1>
+                </div>
+            </div>
         </div>
+        <div class="main">
+            <div>
+                <div class="content">
+                    <h3>Table of Contents</h3>
+                    <ul>
+                        <li><a href="#section1">Models</a></li>
+                        <ul>
+                            <li><a href="#section1">Popular Models</a></li>
+                            <li><a href="#section2">Where to Find Models</a></li>
+                            <li><a href="#section3">How to Make them Work</a></li>
+                            <li><a href="#section3">How to mix models--Points to WebUI features</a></li>
+                        </ul>
+                        <br />
+                        <li><a href="#section2">VAE's</a></li>
+                        <ul>
+                            <li><a href="#section1">Popular VAE's</a></li>
+                            <li><a href="#section2">Where to Find VAE's</a></li>
+                            <li><a href="#section3">How to Make them Work</a></li>
+                        </ul>
+                        <br />
+                        <li><a href="#section3">Server Features</a></li>
+                        <ul>
+                            <li><a href="#section1">Read metadata</a></li>
+                            <li><a href="#section2">Reporting</a></li>
+                        </ul>
+                        <br />
+                        <li><a href="#section1">LoRa/Embed/Hypernetwork</a></li>
+                        <ul>
+                            <li><a href="#section1">Popular</a></li>
+                            <li><a href="#section2">Where to Find Them</a></li>
+                            <li><a href="#section3">Where to put them/make them work</a></li>
+                            <li><a href="#section3">Loose guidelines on weighting them</a></li>
+                        </ul>
+                        <br />
+                        <li><a href="#section2">Prompting</a></li>
+                        <ul>
+                            <li><a href="#section1">Prompting Crashcourse</a></li>
+                            <ul>
+                                <li><a href="#section1">Additional prompting details</a></li>
+                            </ul>
+                            <li><a href="#section2">How to see others prompts--points to read metadata and Webui
+                                    Features</a>
+                            </li>
+                        </ul>
+                        <br />
+                        <li><a href="#section1">WebUI features</a></li>
+                        <ul>
+                            <li><a href="#section1">Extensions</a></li>
+                            <ul>
+                                <li><a href="#section1">Popular ones</a></li>
+                                <li><a href="#section1">How to download</a></li>
+                            </ul>
+                            <li><a href="#section2">PNG info</a></li>
+                            <li><a href="#section3">Need to Know SD Settings</a></li>
+                            <li><a href="#section3">Popular Settings</a></li>
+                            <ul>
+                                <li><a href="#section1">Samplers</a></li>
+                                <li><a href="#section1">Sampling Steps</a></li>
+                                <li><a href="#section1">Denoise</a></li>
+                                <li><a href="#section1">Upscalers</a></li>
+                            </ul>
+                            <li><a href="#section2">Img2Img</a></li>
+                            <li><a href="#section2">Model Mixing</a></li>
+                            <li><a href="#section2">Image Browser</a></li>
+                        </ul>
+                    </ul>
+                </div>
 
-        <button class="accordion"><span class="arrow">&#9660;</span> Section 2</button>
-        <div class="panel">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo
-                consequat.</p>
-        </div>
+                <hr />
+                <br>
+                <div>
+                    <h1>Overview</h1>
+                </div>
+                <div class="content-container">
+                    <div class="bump">
+                        <a id="section1"><img src="/icon/link.svg"></a>
+                    </div>
+                    <div class="content">
+                        <button class="accordion"><span class="arrow">&#9660;</span> Section 1</button>
+                        <div class="panel">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut
+                                labore
+                                et
+                                dolore
+                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip
+                                ex
+                                ea
+                                commodo
+                                consequat.</p>
+                            <img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_metal_armor.png"
+                                alt="Moth-Girl">
+                        </div>
+                    </div>
+                </div>
+                <button class="accordion"><span class="arrow">&#9660;</span> Section 2</button>
+                <div class="panel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et
+                        dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                        ex
+                        ea
+                        commodo
+                        consequat.</p>
+                </div>
 
-        <button class="accordion"><span class="arrow">&#9660;</span> Section 3</button>
-        <div class="panel">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo
-                consequat.</p>
+                <button class="accordion"><span class="arrow">&#9660;</span> Section 3</button>
+                <div class="panel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et
+                        dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                        ex
+                        ea
+                        commodo
+                        consequat.</p>
+                </div>
+            </div>
         </div>
     </div>
     <script>
+        var acc = document.getElementsByClassName("bump");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+
+
         var acc = document.getElementsByClassName("accordion");
         var i;
 

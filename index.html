@@ -69,8 +69,8 @@
 
 		/* The dropdown container */
 		.dropdown {
-			float: left;
-			overflow: hidden;
+			position: relative;
+			display: inline-block;
 		}
 
 		/* Dropdown button */
@@ -95,10 +95,11 @@
 
 		/* Dropdown content (hidden by default) */
 		.dropdown-content {
-			display: none;
+			max-height: 0px;
 			position: absolute;
 			background-color: #f9f9f9;
-			width: 100%;
+			overflow: hidden;
+			width: 30%;
 			left: 0;
 			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 			z-index: 1;
@@ -109,14 +110,6 @@
 			background: red;
 			padding: 16px;
 			color: white;
-		}
-
-		/* Show the dropdown menu on hover */
-		.dropdown:hover .dropdown-content {
-			transition: margin-right .1s ease-in-out .5s;
-			transition-delay: .5s;
-
-
 		}
 
 		/* Create three equal columns that floats next to each other */
@@ -150,16 +143,6 @@
 			clear: both;
 		}
 
-		.menu {}
-
-		.menu ul {
-			margin-bottom: 10px;
-		}
-
-		.menu h3 {
-			margin-left: var(--l20);
-		}
-
 		.main {
 			background-color: var(--bgColor);
 			border: 1px solid var(--borderColor);
@@ -168,6 +151,15 @@
 			flex-direction: column;
 			width: 100%;
 		}
+
+		.menu {}
+
+		.menu ul {
+			margin-bottom: 10px;
+		}
+
+		.menu h3 {}
+
 
 		.content-container {
 			display: flex;
@@ -196,10 +188,29 @@
 		}
 
 		.content-header {
+			margin-top: 25px;
 			display: flex;
-			flex-grow: 1;
+			flex-grow: 0;
 
 		}
+
+		.collapsible {
+			max-height: 0;
+			transition: max-height 0.2s ease-out .2s;
+			background: #f5f5f5;
+			overflow: hidden;
+		}
+
+		.collapsible:hover {
+			max-height: 300px;
+		}
+
+		.toggler:hover+.collapsible {
+			max-height: 300px;
+			/* Adjust according to your content */
+			transition: max-height 0.2s ease-in-out .2s;
+		}
+
 
 		.bump {
 			width: 50px;
@@ -209,20 +220,24 @@
 			background-color: var(--bgColor);
 			color: var(--textColor);
 			cursor: pointer;
-			padding: 18px;
 			margin-right: var(--r20);
 			flex-grow: 1;
 			border: none;
-			border-radius: 5px 5px 0px 0px;
+			border-radius: 5px 5px 5px 5px;
 			text-align: left;
 			outline: none;
 			font-size: 15px;
 			transition: 0.4s;
 		}
 
+		.wiki button {
+			padding: 15px 0 15px 0;
+		}
+
 		.active,
 		.accordion:hover {
 			background-color: var(--borderColor);
+			border-radius: 5px 5px 0px 0px;
 		}
 
 		.panel {
@@ -231,6 +246,7 @@
 			background-color: var(--docColor);
 			margin-left: var(--l20);
 			margin-right: var(--r20);
+			flex-grow: 1;
 			max-height: 0;
 			overflow: hidden;
 			transition: max-height 0.2s ease-out;
@@ -247,6 +263,7 @@
 			border-top: 1px solid var(--borderColor);
 			width: 100%;
 			background-color: var(--docColor);
+			margin-top: 20px;
 		}
 
 		.arrow {
@@ -281,10 +298,10 @@
 				<a href="#home">Home</a>
 				<a href="#news">News</a>
 				<div class="dropdown">
-					<button class="dropbtn" id="navButton">Dropdown
+					<button class="dropbtn toggler" id="navButton">Dropdown
 						<i class="fa fa-caret-down"></i>
 					</button>
-					<div class="dropdown-content" id="NavContent">
+					<div class="dropdown-content collapsible" id="navContent">
 						<div class="header">
 							<h2>Mega Menu</h2>
 						</div>
@@ -316,209 +333,235 @@
 		<!-- main body content -->
 		<div class="main">
 			<div class="menu">
-				<!-- Table of contents header -->
-				<h3>Table of Contents</h3>
+				<!-- Table of contents container -->
+				<div class="content-container">
+					<!-- Content header, includes toggle button and link -->
+					<div class="content-header">
+						<!-- Link target for toggle button -->
+						<div class="bump">
+							<a id="section1">
+								<!-- Link icon -->
+								<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16"
+									height="16" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+									</path>
+								</svg>
+							</a>
+						</div>
+						<!-- Toggle button for accordion effect -->
+						<button class="accordion">
+							<h3><span class="arrow">&#9660;</span>
+								Table of Contents</h3>
+						</button>
+					</div>
+					<!-- Accordion content -->
+					<div class="content">
+						<div class="panel">
+							<!-- Unordered list for primary menu items -->
+							<ul class="primary-menu">
 
-				<!-- Unordered list for primary menu items -->
-				<ul class="primary-menu">
+								<!-- First primary menu item with a submenu for models -->
+								<li>
+									<a href="#section1">Models</a>
+									<ul>
+										<li><a href="#section1">Popular Models</a></li>
+										<li><a href="#section2">Where to Find Models</a></li>
+										<li><a href="#section3">How to Make them Work</a></li>
+										<li><a href="#section3">How to Mix Models - Points to WebUI Features</a></li>
+									</ul>
+								</li>
 
-					<!-- First primary menu item with a submenu for models -->
-					<li>
-						<a href="#section1">Models</a>
-						<ul>
-							<li><a href="#section1">Popular Models</a></li>
-							<li><a href="#section2">Where to Find Models</a></li>
-							<li><a href="#section3">How to Make them Work</a></li>
-							<li><a href="#section3">How to Mix Models - Points to WebUI Features</a></li>
-						</ul>
-					</li>
+								<!-- Second primary menu item with a submenu for VAEs -->
+								<li>
+									<a href="#section2">VAE's</a>
+									<ul>
+										<li><a href="#section1">Popular VAE's</a></li>
+										<li><a href="#section2">Where to Find VAE's</a></li>
+										<li><a href="#section3">How to Make them Work</a></li>
+									</ul>
+								</li>
 
-					<!-- Second primary menu item with a submenu for VAEs -->
-					<li>
-						<a href="#section2">VAE's</a>
-						<ul>
-							<li><a href="#section1">Popular VAE's</a></li>
-							<li><a href="#section2">Where to Find VAE's</a></li>
-							<li><a href="#section3">How to Make them Work</a></li>
-						</ul>
-					</li>
+								<!-- Third primary menu item with a submenu for server features -->
+								<li>
+									<a href="#section3">Server Features</a>
+									<ul>
+										<li><a href="#section1">Read Metadata</a></li>
+										<li><a href="#section2">Reporting</a></li>
+									</ul>
+								</li>
 
-					<!-- Third primary menu item with a submenu for server features -->
-					<li>
-						<a href="#section3">Server Features</a>
-						<ul>
-							<li><a href="#section1">Read Metadata</a></li>
-							<li><a href="#section2">Reporting</a></li>
-						</ul>
-					</li>
+								<!-- Fourth primary menu item with a submenu for LoRa/Embed/Hypernetwork -->
+								<li>
+									<a href="#section1">LoRa/Embed/Hypernetwork</a>
+									<ul>
+										<li><a href="#section1">Popular</a></li>
+										<li><a href="#section2">Where to Find Them</a></li>
+										<li><a href="#section3">Where to Put Them/Make them Work</a></li>
+										<li><a href="#section3">Loose Guidelines on Weighting Them</a></li>
+									</ul>
+								</li>
 
-					<!-- Fourth primary menu item with a submenu for LoRa/Embed/Hypernetwork -->
-					<li>
-						<a href="#section1">LoRa/Embed/Hypernetwork</a>
-						<ul>
-							<li><a href="#section1">Popular</a></li>
-							<li><a href="#section2">Where to Find Them</a></li>
-							<li><a href="#section3">Where to Put Them/Make them Work</a></li>
-							<li><a href="#section3">Loose Guidelines on Weighting Them</a></li>
-						</ul>
-					</li>
+								<!-- Fifth primary menu item with a submenu for Prompting -->
+								<li>
+									<a href="#section2">Prompting</a>
+									<ul>
+										<li>
+											<a href="#section1">Prompting Crashcourse</a>
+											<ul>
+												<li><a href="#section1">Additional Prompting Details</a></li>
+											</ul>
+										</li>
+										<li><a href="#section2">How to See Others Prompts - Points to Read Metadata and
+												WebUI
+												Features</a></li>
+									</ul>
+								</li>
 
-					<!-- Fifth primary menu item with a submenu for Prompting -->
-					<li>
-						<a href="#section2">Prompting</a>
-						<ul>
-							<li>
-								<a href="#section1">Prompting Crashcourse</a>
-								<ul>
-									<li><a href="#section1">Additional Prompting Details</a></li>
-								</ul>
-							</li>
-							<li><a href="#section2">How to See Others Prompts - Points to Read Metadata and WebUI
-									Features</a></li>
-						</ul>
-					</li>
+								<!-- Sixth primary menu item with a submenu for WebUI features -->
+								<li>
+									<a href="#section1">WebUI Features</a>
+									<ul>
+										<li>
+											<a href="#section1">Extensions</a>
+											<ul>
+												<li><a href="#section1">Popular Ones</a></li>
+												<li><a href="#section1">How to download</a></li>
+											</ul>
+										</li>
 
-					<!-- Sixth primary menu item with a submenu for WebUI features -->
-					<li>
-						<a href="#section1">WebUI Features</a>
-						<ul>
-							<li>
-								<a href="#section1">Extensions</a>
-								<ul>
-									<li><a href="#section1">Popular Ones</a></li>
-									<li><a href="#section1">How to download</a></li>
-								</ul>
-							</li>
+										<li><a href="#section2">PNG info</a></li>
+										<li><a href="#section3">Need to Know SD Settings</a></li>
+										<li><a href="#section3">Popular Settings</a>
+											<ul>
+												<li><a href="#section1">Samplers</a></li>
+												<li><a href="#section1">Sampling Steps</a></li>
+												<li><a href="#section1">Denoise</a></li>
+												<li><a href="#section1">Upscalers</a></li>
+											</ul>
+										</li>
+										<li><a href="#section2">Img2Img</a></li>
+										<li><a href="#section2">Model Mixing</a></li>
+										<li><a href="#section2">Image Browser</a></li>
+									</ul>
+								</li>
 
-							<li><a href="#section2">PNG info</a></li>
-							<li><a href="#section3">Need to Know SD Settings</a></li>
-							<li><a href="#section3">Popular Settings</a>
-								<ul>
-									<li><a href="#section1">Samplers</a></li>
-									<li><a href="#section1">Sampling Steps</a></li>
-									<li><a href="#section1">Denoise</a></li>
-									<li><a href="#section1">Upscalers</a></li>
-								</ul>
-							</li>
-							<li><a href="#section2">Img2Img</a></li>
-							<li><a href="#section2">Model Mixing</a></li>
-							<li><a href="#section2">Image Browser</a></li>
-						</ul>
-					</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
-				</ul>
 			</div>
+			<div class="wiki">
 
-			<hr />
-			<!-- Overview heading -->
-			<div>
-				<h1>Overview</h1>
-			</div>
+				<hr />
 
-			<!-- Subject 1 -->
-			<div class="content-container">
-				<!-- Content header, includes toggle button and link -->
-				<div class="content-header">
-					<!-- Link target for toggle button -->
-					<div class="bump">
-						<a id="section1">
-							<!-- Link icon -->
-							<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16" height="16"
-								aria-hidden="true">
-								<path fill-rule="evenodd"
-									d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-								</path>
-							</svg>
-						</a>
-					</div>
-					<!-- Toggle button for accordion effect -->
-					<button class="accordion">
-						<span class="arrow">&#9660;</span>
-						Section 1
-					</button>
-				</div>
-				<!-- Accordion content -->
-				<div class="content">
-					<div class="panel">
-						<!-- Text content -->
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-							incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-							exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						<!-- Image content -->
-						<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
-							alt="Filler">
-					</div>
-				</div>
-			</div>
 
-			<!-- Subject 2 -->
-			<div class="content-container">
-				<!-- Content header, includes toggle button and link -->
-				<div class="content-header">
-					<!-- Link target for toggle button -->
-					<div class="bump">
-						<a id="section1">
-							<!-- Link icon -->
-							<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16" height="16"
-								aria-hidden="true">
-								<path fill-rule="evenodd"
-									d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-								</path>
-							</svg>
-						</a>
+				<!-- Subject 1 -->
+				<div class="content-container">
+					<!-- Content header, includes toggle button and link -->
+					<div class="content-header">
+						<!-- Link target for toggle button -->
+						<div class="bump">
+							<a id="section1">
+								<!-- Link icon -->
+								<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16"
+									height="16" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+									</path>
+								</svg>
+							</a>
+						</div>
+						<!-- Toggle button for accordion effect -->
+						<button class="accordion">
+							<span class="arrow">&#9660;</span>
+							Section 1
+						</button>
 					</div>
-					<!-- Toggle button for accordion effect -->
-					<button class="accordion">
-						<span class="arrow">&#9660;</span>
-						Section 1
-					</button>
-				</div>
-				<!-- Accordion content -->
-				<div class="content">
-					<div class="panel">
-						<!-- Text content -->
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-							incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-							exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						<!-- Image content -->
-						<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
-							alt="Filler">
+					<!-- Accordion content -->
+					<div class="content">
+						<div class="panel">
+							<!-- Text content -->
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+								exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<!-- Image content -->
+							<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
+								alt="Filler">
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- Subject 3 -->
-			<div class="content-container">
-				<!-- Content header, includes toggle button and link -->
-				<div class="content-header">
-					<!-- Link target for toggle button -->
-					<div class="bump">
-						<a id="section1">
-							<!-- Link icon -->
-							<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16" height="16"
-								aria-hidden="true">
-								<path fill-rule="evenodd"
-									d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-								</path>
-							</svg>
-						</a>
+				<!-- Subject 2 -->
+				<div class="content-container">
+					<!-- Content header, includes toggle button and link -->
+					<div class="content-header">
+						<!-- Link target for toggle button -->
+						<div class="bump">
+							<a id="section1">
+								<!-- Link icon -->
+								<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16"
+									height="16" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+									</path>
+								</svg>
+							</a>
+						</div>
+						<!-- Toggle button for accordion effect -->
+						<button class="accordion">
+							<span class="arrow">&#9660;</span>
+							Section 1
+						</button>
 					</div>
-					<!-- Toggle button for accordion effect -->
-					<button class="accordion">
-						<span class="arrow">&#9660;</span>
-						Section 1
-					</button>
+					<!-- Accordion content -->
+					<div class="content">
+						<div class="panel">
+							<!-- Text content -->
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+								exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<!-- Image content -->
+							<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
+								alt="Filler">
+						</div>
+					</div>
 				</div>
-				<!-- Accordion content -->
-				<div class="content">
-					<div class="panel">
-						<!-- Text content -->
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-							incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-							exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						<!-- Image content -->
-						<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
-							alt="Moth-girl">
+
+				<!-- Subject 3 -->
+				<div class="content-container">
+					<!-- Content header, includes toggle button and link -->
+					<div class="content-header">
+						<!-- Link target for toggle button -->
+						<div class="bump">
+							<a id="section1">
+								<!-- Link icon -->
+								<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16"
+									height="16" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+									</path>
+								</svg>
+							</a>
+						</div>
+						<!-- Toggle button for accordion effect -->
+						<button class="accordion">
+							<span class="arrow">&#9660;</span>
+							Section 1
+						</button>
+					</div>
+					<!-- Accordion content -->
+					<div class="content">
+						<div class="panel">
+							<!-- Text content -->
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+								exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<!-- Image content -->
+							<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
+								alt="Moth-girl">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -541,22 +584,6 @@
 		}
 
 
-		//Function to expand the meganav dropdown menu
-		function expandNav(content) {
-			debugger;
-			//Check if the max-height property of the panel is not equal to 0px
-			if ($(content).css("max-height") != "0px") {
-				//If not equal to 0px, set the max-height property of the panel to 0px
-				$(content).css("max-height", 0 + "px");
-			} else {
-				//If equal to 0px, get the scrollHeight of the panel and store it in the variable 'scrollHeight'
-				var scrollHeight = $(content).get(0).scrollHeight;
-				//Set the max-height property of the panel to the value of scrollHeight
-				$(panel).css("max-height", scrollHeight + "px");
-			}
-		}
-
-
 
 
 
@@ -571,19 +598,6 @@
 				var panel = $(this).closest(".content-container").find(".panel").eq(0);
 				//Call the 'expand' function with the panel element as an argument
 				expandPanel(panel);
-			});
-
-			//Attach a click event listener to all elements with id 'megaNav-button'
-			$("#navButton").on("hover", function () {
-				if ($("#navContent").css("max-height") != "0px") {
-					//If not equal to 0px, set the max-height property of the panel to 0px
-					$("#navContent").css("max-height", 0 + "px");
-				} else {
-					//If equal to 0px, get the scrollHeight of the panel and store it in the variable 'scrollHeight'
-					var scrollHeight = $("#navContent").scrollHeight;
-					//Set the max-height property of the panel to the value of scrollHeight
-					$("#navContent").css("max-height", scrollHeight + "px");
-				}
 			});
 		});
 

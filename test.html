@@ -1,351 +1,614 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<style>
-			:root {
-				--l20: 40px;
-				--white: #ffffff;
-			}
-			body {
-				background-color: #0D1117;
-				color: #C9D1D9;
-				font-family: trebuchet ms;
-				font-size:1em;
-				line-height:1.5em;
-			}
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		:root {
+			/* Left and Right margins */
+			--l20: 50px;
+			--r20: 50px;
+			/* Pallete */
+			--bgColor: #0D1117;
+			--docColor: #161B22;
+			--textColor: #C9D1D9;
+			--borderColor: #30363D;
+			--linkColor: #2D98FF;
 
-			a {
-				color: #2D98FF;
-			}
+		}
 
-			hr {
-				display: block;
-				height: 1px;
-				border: 0;
-				border-top: 1px solid #30363D;
-				width: 100%;
-				background-color: #161B22;
-			}
-			.frame{
+		body {
+			background-color: var(--bgColor);
+			color: var(--textColor);
+			font-family: trebuchet ms;
+			font-size: 1em;
+			line-height: 1.5em;
+		}
 
-			}
-			.anchor {
-				float: left;
-				padding-right: 4px;
-				margin-left: -20px;
-				line-height: 1;
-			}	
-			.content {
-				display: flex;
-				flex-grow: 1;
-				color:#2D98FF;
-			}
-			.header {
-				background-color: #161B22;
-				border:1px solid #30363D;
-				border-bottom: none;
-				border-radius: 5px 5px 0 0;
-				width: 100%;
-			}
-			.frame .header{
-				border-radius:0px;
-			}
-			.frame .header .content{
-				margin-left:20px;
-			}
+		.frame {}
 
-			.container {
+		.content {
+			display: flex;
+			flex-grow: 1;
+			color: var(--textColor);
+		}
+
+		/* --------------Header------------------*/
+		.header {
+			background-color: var(--borderColor);
+			border: 1px solid var(--borderColor);
+			border-bottom: none;
+			border-radius: 5px 5px 0 0;
+			width: 100%;
+		}
+
+		.frame .header {
+			border-radius: 0px;
+		}
+
+		.frame .header .content {
+			margin-left: var(--l20);
+		}
+
+		/* -------------Nav Bar----------------*/
+		.navbar {
+			overflow: hidden;
+			background-color: var(--docColor);
+		}
+
+		.navbar a {
+
+			float: left;
+			font-size: 16px;
+			color: var(--textColor);
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		.dropdown {
+			float: left;
+			overflow: hidden;
+		}
+
+		.dropdown .dropbtn {
+			font-size: 16px;
+			border: none;
+			outline: none;
+			color: var(--textColor);
+			padding: 16px 16px 17px 16px;
+			background-color: inherit;
+			font-family: inherit;
+		}
+
+		.navbar a:hover,
+		.dropdown:hover .dropbtn {
+			background-color: var(--bgColor);
+		}
+
+		.dropdown-content {
+			display: flex;
+			flex-wrap: wrap;
+			position: absolute;
+			overflow: scroll;
+			overflow-x: hidden;
+			background-color: var(--borderColor);
+			color: var(--textColor);
+			border-radius: 0px 5px 5px 5px;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+			z-index: 1;
+		}
+
+		.dropdown-content a {
+			float: none;
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+			text-align: left;
+		}
+
+		.dropdown-block {
+			flex-grow: 1;
+		}
+
+		.dropdown-content a:hover {
+			background-color: var(--bgColor);
+		}
+
+		.dropdown:hover .dropdown-content {}
+
+		.collapsible {
+			max-height: 0;
+			transition: max-height 0.2s ease-out .2s;
+		}
+
+		.collapsible:hover {
+			max-height: 300px;
+		}
+
+		.toggler:hover+.collapsible {
+			max-height: 300px;
+			/* Adjust according to your content */
+			transition: max-height 0.2s ease-in-out .2s;
+		}
+
+		/* ----------------Main-------------------*/
+
+		.main {
+			background-color: var(--bgColor);
+			border: 1px solid var(--borderColor);
+			border-radius: 0 0 5px 5px;
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.menu {}
+
+		.menu ul {
+			margin-bottom: 10px;
+		}
+
+		.menu h3 {}
+
+
+		.content-container {
+			display: flex;
+			flex-grow: 1;
+			flex-direction: column;
+		}
+
+		.octicon-link {
+			visibility: hidden;
+			margin-right: 5px;
+			overflow: visible !important;
+			float: right;
+			fill: var(--textColor);
+			display: flex;
+			align-items: center;
+			justify-content: right;
+			height: 100%;
+		}
+
+		.content-container:hover .octicon-link {
+			visibility: visible;
+			margin-right: 5px;
+			overflow: visible !important;
+			float: right;
+			fill: var(--textColor);
+		}
+
+		.content-header {
+			margin-top: 25px;
+			display: flex;
+			flex-grow: 0;
+
+		}
+
+		.bump {
+			width: 50px;
+		}
+
+		.accordion {
+			background-color: var(--bgColor);
+			color: var(--textColor);
+			cursor: pointer;
+			margin-right: var(--r20);
+			flex-grow: 1;
+			border: none;
+			border-radius: 5px 5px 5px 5px;
+			text-align: left;
+			outline: none;
+			font-size: 15px;
+			transition: 0.4s;
+		}
+
+		.wiki button {
+			padding: 15px 0 15px 0;
+		}
+
+		.active,
+		.accordion:hover {
+			background-color: var(--borderColor);
+			border-radius: 5px 5px 0px 0px;
+		}
+
+		.panel {
+			padding: 0 18px;
+			border-radius: 0px 0px 5px 5px;
+			background-color: var(--docColor);
+			margin-left: var(--l20);
+			margin-right: var(--r20);
+			flex-grow: 1;
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.2s ease-out;
+		}
+
+		a {
+			color: var(--linkColor);
+		}
+
+		.main hr {
+			display: block;
+			height: 1px;
+			border: 0;
+			border-top: 1px solid var(--borderColor);
+			width: 100%;
+			background-color: var(--docColor);
+			margin-top: 20px;
+		}
+
+		.arrow {
+			display: inline-block;
+			transition: transform 0.3s;
+			transform: rotate(-90deg);
+		}
+
+		.active .arrow {
+			transform: rotate(0deg);
+		}
+
+		@media only screen and (min-width:1200px) {
+			.frame {
 				max-width: 1200px;
-				margin: 0 auto;
-				display: flex;
-				flex-direction: column;
+				margin: auto;
 			}
-			.menu{
+		}
+	</style>
+</head>
 
-			}
-			.menu ul{
-				margin-bottom:10px;
-			}
-			.menu h3{
-				margin-left:var(--l20);
-			}
-			.main {
-				background-color: #0D1117;
-				border: 1px solid #30363D;
-				border-radius: 0 0 5px 5px;
-				display: flex;
-				flex-direction: column;
-				width: 100%;
-			}
-
-			.content-container {
-				display: flex;
-				flex-grow: 1;
-				flex-direction: column;
-			}
-			.content-header{
-				display: flex;
-				flex-grow: 1;
-
-			}
-
-
-
-			.bump {
-				width: 50px;
-			}
-
-			.content-container:hover .octicon-link {
-				visibility: visible;
-				margin-right: 5px;
-				overflow: visible !important;
-				float: right;
-				fill: #C9D1D9;
-			}
-
-			.accordion {
-				background-color: #0D1117;
-				color: #C9D1D9;
-				cursor: pointer;
-				padding: 18px;
-				flex-grow: 1;
-				border: none;
-				border-radius: 5px 5px 0px 0px;
-				text-align: left;
-				outline: none;
-				font-size: 15px;
-				transition: 0.4s;
-			}
-
-			.center {
-				display: flex;
-				align-items: center;
-				justify-content: right;
-				height: 100%;
-			}
-
-			.octicon-link {
-				visibility: hidden;
-				margin-right: 5px;
-				overflow: visible !important;
-				float: right;
-				fill: #C9D1D9;
-			}
-
-
-			.active,
-			.accordion:hover {
-				background-color: #30363D;
-			}
-
-			.panel {
-				padding: 0 18px;
-				border-radius: 0px 0px 5px 5px;
-				background-color: #161B22;
-				max-height: 0;
-				overflow: hidden;
-				transition: max-height 0.2s ease-out;
-			}
-
-			.arrow {
-				display: inline-block;
-				transition: transform 0.3s;
-				transform: rotate(-90deg);
-			}
-
-			.active .arrow {
-				transform: rotate(0deg);
-			}
+<body>
+	<!-- main content container -->
+	<div class="frame">
+		<!-- header content -->
+		<div class="header">
+			<div class="content">
+				<h1>Know Return - Your Guide to Unstable Diffusion</h1>
+			</div>
+			<div class="navbar">
+				<a href="#home">Home</a>
+				<a href="#news">News</a>
+				<div class="dropdown">
+					<button class="dropbtn toggler">Dropdown
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content collapsible">
+						<div class="dropdown-block">
+							<h1>thing 1</h1>
+							<ul>
+								<li>that first topic</li>
+								<li>that second topic</li>
+								<li>that third topic</li>
+							</ul>
+						</div>
+						<div class="dropdown-block">
+							<h1>thing 2</h1>
+							<ul>
+								<li>that first topic</li>
+								<li>that second topic</li>
+								<li>that third topic</li>
+							</ul>
+						</div>
+						<div class="dropdown-block">
+							<h1>thing 3</h1>
+							<ul>
+								<li>that first topic</li>
+								<li>that second topic</li>
+								<li>that third topic</li>
+							</ul>
+						</div>
+						<div class="dropdown-block">
+							<h1>thing 4</h1>
+							<ul>
+								<li>that first topic</li>
+								<li>that second topic</li>
+								<li>that third topic</li>
+							</ul>
+						</div>
+						<div class="dropdown-block">
+							<h1>thing 5</h1>
+							<ul>
+								<li>that first topic</li>
+								<li>that second topic</li>
+								<li>that third topic</li>
+							</ul>
+						</div>
+						<div class="dropdown-block">
+							<h1>thing 6</h1>
+							<ul>
+								<li>that first topic</li>
+								<li>that second topic</li>
+								<li>that third topic</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
-			@media only screen and (min-width:1200px) {
-				.frame {
-					max-width:1200px;
-					margin:auto;
-				}
-			}
-		</style>
-	</head>
 
-	<body>
-		<div class="frame">
-			<div class="header">
-				<div class="content">
-					<h1>Your Guide to Stable Diffusion</h1>
+		</div>
+		<!-- main body content -->
+		<div class="main">
+			<div class="menu">
+				<!-- Table of contents container -->
+				<div class="content-container">
+					<!-- Content header, includes toggle button and link -->
+					<div class="content-header">
+						<!-- Link target for toggle button -->
+						<div class="bump">
+							<a id="section1">
+								<!-- Link icon -->
+								<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16"
+									height="16" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+									</path>
+								</svg>
+							</a>
+						</div>
+						<!-- Toggle button for accordion effect -->
+						<button class="accordion">
+							<h3><span class="arrow">&#9660;</span>
+								Table of Contents</h3>
+						</button>
+					</div>
+					<!-- Accordion content -->
+					<div class="content">
+						<div class="panel">
+							<!-- Unordered list for primary menu items -->
+							<ul class="primary-menu">
+
+								<!-- First primary menu item with a submenu for models -->
+								<li>
+									<a href="#section1">Models</a>
+									<ul>
+										<li><a href="#section1">Popular Models</a></li>
+										<li><a href="#section2">Where to Find Models</a></li>
+										<li><a href="#section3">How to Make them Work</a></li>
+										<li><a href="#section3">How to Mix Models - Points to WebUI Features</a></li>
+									</ul>
+								</li>
+
+								<!-- Second primary menu item with a submenu for VAEs -->
+								<li>
+									<a href="#section2">VAE's</a>
+									<ul>
+										<li><a href="#section1">Popular VAE's</a></li>
+										<li><a href="#section2">Where to Find VAE's</a></li>
+										<li><a href="#section3">How to Make them Work</a></li>
+									</ul>
+								</li>
+
+								<!-- Third primary menu item with a submenu for server features -->
+								<li>
+									<a href="#section3">Server Features</a>
+									<ul>
+										<li><a href="#section1">Read Metadata</a></li>
+										<li><a href="#section2">Reporting</a></li>
+									</ul>
+								</li>
+
+								<!-- Fourth primary menu item with a submenu for LoRa/Embed/Hypernetwork -->
+								<li>
+									<a href="#section1">LoRa/Embed/Hypernetwork</a>
+									<ul>
+										<li><a href="#section1">Popular</a></li>
+										<li><a href="#section2">Where to Find Them</a></li>
+										<li><a href="#section3">Where to Put Them/Make them Work</a></li>
+										<li><a href="#section3">Loose Guidelines on Weighting Them</a></li>
+									</ul>
+								</li>
+
+								<!-- Fifth primary menu item with a submenu for Prompting -->
+								<li>
+									<a href="#section2">Prompting</a>
+									<ul>
+										<li>
+											<a href="#section1">Prompting Crashcourse</a>
+											<ul>
+												<li><a href="#section1">Additional Prompting Details</a></li>
+											</ul>
+										</li>
+										<li><a href="#section2">How to See Others Prompts - Points to Read Metadata and
+												WebUI
+												Features</a></li>
+									</ul>
+								</li>
+
+								<!-- Sixth primary menu item with a submenu for WebUI features -->
+								<li>
+									<a href="#section1">WebUI Features</a>
+									<ul>
+										<li>
+											<a href="#section1">Extensions</a>
+											<ul>
+												<li><a href="#section1">Popular Ones</a></li>
+												<li><a href="#section1">How to download</a></li>
+											</ul>
+										</li>
+
+										<li><a href="#section2">PNG info</a></li>
+										<li><a href="#section3">Need to Know SD Settings</a></li>
+										<li><a href="#section3">Popular Settings</a>
+											<ul>
+												<li><a href="#section1">Samplers</a></li>
+												<li><a href="#section1">Sampling Steps</a></li>
+												<li><a href="#section1">Denoise</a></li>
+												<li><a href="#section1">Upscalers</a></li>
+											</ul>
+										</li>
+										<li><a href="#section2">Img2Img</a></li>
+										<li><a href="#section2">Model Mixing</a></li>
+										<li><a href="#section2">Image Browser</a></li>
+									</ul>
+								</li>
+
+							</ul>
+						</div>
+					</div>
 				</div>
 
 			</div>
-			<div class="main">
-				<div>
-					<div class="menu">
-						<h3>Table of Contents</h3>
-						<ul class="primary-menu">
-							<li>
-								<a href="#section1">Models</a>
-								<ul>
-									<li><a href="#section1">Popular Models</a></li>
-									<li><a href="#section2">Where to Find Models</a></li>
-									<li><a href="#section3">How to Make them Work</a></li>
-									<li><a href="#section3">How to mix models--Points to WebUI features</a></li>
-								</ul>
-							</li>
+			<div class="wiki">
 
-							<li><a href="#section2">VAE's</a>
-								<ul>
-									<li><a href="#section1">Popular VAE's</a></li>
-									<li><a href="#section2">Where to Find VAE's</a></li>
-									<li><a href="#section3">How to Make them Work</a></li>
-								</ul>
-							</li>
+				<hr />
 
 
-							<li><a href="#section3">Server Features</a>
-								<ul>
-									<li><a href="#section1">Read metadata</a></li>
-									<li><a href="#section2">Reporting</a></li>
-								</ul>
-							</li>
-
-
-							<li><a href="#section1">LoRa/Embed/Hypernetwork</a>
-								<ul>
-									<li><a href="#section1">Popular</a></li>
-									<li><a href="#section2">Where to Find Them</a></li>
-									<li><a href="#section3">Where to put them/make them work</a></li>
-									<li><a href="#section3">Loose guidelines on weighting them</a></li>
-								</ul>
-							</li>
-
-
-							<li><a href="#section2">Prompting</a>
-								<ul>
-									<li><a href="#section1">Prompting Crashcourse</a>
-										<ul>
-											<li><a href="#section1">Additional prompting details</a></li>
-										</ul></li>
-
-									<li><a href="#section2">How to see others prompts--points to read metadata and Webui
-										Features</a>
-									</li>
-								</ul></li>
-
-
-							<li><a href="#section1">WebUI features</a>
-								<ul>
-									<li><a href="#section1">Extensions</a>
-										<ul>
-											<li><a href="#section1">Popular ones</a></li>
-											<li><a href="#section1">How to download</a></li>
-										</ul>
-									</li>
-
-									<li><a href="#section2">PNG info</a></li>
-									<li><a href="#section3">Need to Know SD Settings</a></li>
-									<li><a href="#section3">Popular Settings</a>
-										<ul>
-											<li><a href="#section1">Samplers</a></li>
-											<li><a href="#section1">Sampling Steps</a></li>
-											<li><a href="#section1">Denoise</a></li>
-											<li><a href="#section1">Upscalers</a></li>
-										</ul>
-									</li>
-
-									<li><a href="#section2">Img2Img</a></li>
-									<li><a href="#section2">Model Mixing</a></li>
-									<li><a href="#section2">Image Browser</a></li>
-								</ul>
-							</li>
-
-						</ul>
-					</div>
-
-					<hr />
-					<br>
-					<div>
-						<h1>Overview</h1>
-					</div>
-					<div class="content-container">
-						<div class="content-header">
-							<div class="bump">
-								<a id="section1"><svg class="octicon-link center" viewBox="0 0 16 16" version="1.1"
-										width="16" height="16" aria-hidden="true">
-										<path fill-rule="evenodd"
-											d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-										</path>
-									</svg></a>
-							</div>
-
-							<button class="accordion"><span class="arrow">&#9660;</span> Section 1</button>
+				<!-- Subject 1 -->
+				<div class="content-container">
+					<!-- Content header, includes toggle button and link -->
+					<div class="content-header">
+						<!-- Link target for toggle button -->
+						<div class="bump">
+							<a id="section1">
+								<!-- Link icon -->
+								<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16"
+									height="16" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+									</path>
+								</svg>
+							</a>
 						</div>
-						<div class="content">
-							<div class="panel">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-									incididunt ut
-									labore
-									et
-									dolore
-									magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-									nisi ut
-									aliquip
-									ex
-									ea
-									commodo
-									consequat.</p>
-								<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_metal_armor.png"
-									alt="Filler">
-							</div>
-
+						<!-- Toggle button for accordion effect -->
+						<button class="accordion">
+							<span class="arrow">&#9660;</span>
+							Section 1
+						</button>
+					</div>
+					<!-- Accordion content -->
+					<div class="content">
+						<div class="panel">
+							<!-- Text content -->
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+								exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<!-- Image content -->
+							<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
+								alt="Filler">
 						</div>
 					</div>
-					<button class="accordion"><span class="arrow">&#9660;</span> Section 2</button>
-					<div class="panel">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore
-							et
-							dolore
-							magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-							ex
-							ea
-							commodo
-							consequat.</p>
-					</div>
+				</div>
 
-					<button class="accordion"><span class="arrow">&#9660;</span> Section 3</button>
-					<div class="panel">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore
-							et
-							dolore
-							magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-							ex
-							ea
-							commodo
-							consequat.</p>
+				<!-- Subject 2 -->
+				<div class="content-container">
+					<!-- Content header, includes toggle button and link -->
+					<div class="content-header">
+						<!-- Link target for toggle button -->
+						<div class="bump">
+							<a id="section1">
+								<!-- Link icon -->
+								<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16"
+									height="16" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+									</path>
+								</svg>
+							</a>
+						</div>
+						<!-- Toggle button for accordion effect -->
+						<button class="accordion">
+							<span class="arrow">&#9660;</span>
+							Section 1
+						</button>
+					</div>
+					<!-- Accordion content -->
+					<div class="content">
+						<div class="panel">
+							<!-- Text content -->
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+								exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<!-- Image content -->
+							<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
+								alt="Filler">
+						</div>
+					</div>
+				</div>
+
+				<!-- Subject 3 -->
+				<div class="content-container">
+					<!-- Content header, includes toggle button and link -->
+					<div class="content-header">
+						<!-- Link target for toggle button -->
+						<div class="bump">
+							<a id="section1">
+								<!-- Link icon -->
+								<svg class="octicon-link center" viewBox="0 0 16 16" version="1.1" width="16"
+									height="16" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+									</path>
+								</svg>
+							</a>
+						</div>
+						<!-- Toggle button for accordion effect -->
+						<button class="accordion">
+							<span class="arrow">&#9660;</span>
+							Section 1
+						</button>
+					</div>
+					<!-- Accordion content -->
+					<div class="content">
+						<div class="panel">
+							<!-- Text content -->
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+								exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<!-- Image content -->
+							<img src="/Images/Examples/10211-4291610938-detailed_hands_perfect_hands_mechanical_Metal_armor.png"
+								alt="Moth-girl">
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script>
-			var acc = document.getElementsByClassName("accordion");
-			var i;
+	</div>
+	<script>
 
-			for (i = 0; i < acc.length; i++) {
-				acc[i].addEventListener("click", function () {
-					this.classList.toggle("active");
-					var panel = this.nextElementSibling;
-					if (panel.style.maxHeight) {
-						panel.style.maxHeight = null;
-					} else {
-
-						panel.style.maxHeight = panel.scrollHeight + "px";
-					}
-				});
+		//Function to expand the panel
+		function expandPanel(panel) {
+			//Check if the max-height property of the panel is not equal to 0px
+			if ($(panel).css("max-height") != "0px") {
+				//If not equal to 0px, set the max-height property of the panel to 0px
+				$(panel).css("max-height", 0 + "px");
+			} else {
+				//If equal to 0px, get the scrollHeight of the panel and store it in the variable 'scrollHeight'
+				var scrollHeight = $(panel).get(0).scrollHeight;
+				//Set the max-height property of the panel to the value of scrollHeight
+				$(panel).css("max-height", scrollHeight + "px");
 			}
-			
-		</script>
+		}
 
-	</body>
+
+
+
+
+		//Wait for the document to be ready
+		$(document).ready(function () {
+
+			//Attach a click event listener to all elements with class 'accordion'
+			$(".accordion").on("click", function () {
+				//Toggle the class 'active' on the clicked element
+				$(this).toggleClass("active");
+				//Find the first '.panel' element within the closest '.content-container' parent of the clicked element
+				var panel = $(this).closest(".content-container").find(".panel").eq(0);
+				//Call the 'expand' function with the panel element as an argument
+				expandPanel(panel);
+			});
+		});
+
+
+
+
+
+	</script>
+
+</body>
 
 </html>
